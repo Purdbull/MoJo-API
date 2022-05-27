@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "vDtqfpD/sox1cQf25E9hW4mXtd5iRYwkljLw2Dg9tK8sxP6cXr2HxanShDMwTCh4uh8zMUL+igntAR2j1AGCiQ==",
+  "success": true,
+  "projectFilePath": "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Moritz Knapp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

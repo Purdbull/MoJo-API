@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoJo-API", "MoJo-API\MoJo-API.csproj", "{519C2B67-9F86-442F-80C5-D4931910AB7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{519C2B67-9F86-442F-80C5-D4931910AB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519C2B67-9F86-442F-80C5-D4931910AB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519C2B67-9F86-442F-80C5-D4931910AB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519C2B67-9F86-442F-80C5-D4931910AB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EF47E59-078D-463A-A650-36E592B87101}
+	EndGlobalSection
+EndGlobal
