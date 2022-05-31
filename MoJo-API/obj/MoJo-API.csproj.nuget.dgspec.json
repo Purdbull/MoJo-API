@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\knappmo\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {}
+    "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\knappmo\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {
+    "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\knappmo\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
+        "projectUniqueName": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
         "projectName": "MoJo-API",
-        "projectPath": "C:\\Users\\knappmo\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
-        "packagesPath": "C:\\Users\\knappmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\knappmo\\Desktop\\MoJo-API\\MoJo-API\\obj\\",
+        "projectPath": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
+        "packagesPath": "C:\\Users\\jonas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\knappmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jonas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,6 +49,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.5, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.15.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

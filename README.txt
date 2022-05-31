@@ -40,3 +40,6 @@ Wir verwendeten Github zur Versionierung.
 
 Alle Requests werden innerhalb von Program.cs verwaltet. Am unteren Ende ist die Modellierung für Datenbankobjekte zu sehen.
 Für den Zugriff auf die Datenbank ist noch ein Datenbank-Context von Nöten. Dieser ist in der Datei DB_Context.cs zu sehen.
+
+## Container ## 
+Wir haben zwar eine Dockerfile in unserem Repo leider haben wir es jedoch nicht geschafft, den Dockercontainer mit der Anwendung zu verbinden. 

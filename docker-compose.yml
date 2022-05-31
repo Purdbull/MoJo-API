@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  mojo-api:
+    image: ${DOCKER_REGISTRY-}mojoapi
+    build:
+      context: .
+      dockerfile: MoJo-API/Dockerfile
