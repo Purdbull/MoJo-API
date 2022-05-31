@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {}
+    "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {}
   },
   "projects": {
-    "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {
+    "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
+        "projectUniqueName": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
         "projectName": "MoJo-API",
-        "projectPath": "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
-        "packagesPath": "C:\\Users\\Moritz Knapp\\.nuget\\packages\\",
-        "outputPath": "D:\\Skywalker\\DH\\weben2\\API\\MoJo-API\\MoJo-API\\obj\\",
+        "projectPath": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\MoJo-API.csproj",
+        "packagesPath": "C:\\Users\\jonas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jonas\\Desktop\\MoJo-API\\MoJo-API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Moritz Knapp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jonas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

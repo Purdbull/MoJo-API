@@ -8,7 +8,10 @@ namespace MoJo_API
         {
 
         }
-        public DbSet<Building> Buildings => Set<Building>();
+        public DbSet<building> buildings => Set<building>();
+        public DbSet<room> rooms => Set<room>();
+        public DbSet<storey> storeys => Set<storey>();
+
 
     }
 }
