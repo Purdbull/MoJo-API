@@ -46,11 +46,28 @@ app.MapGet("/assets/buildings/{id}/", async (Guid id,MoJo_API.DataBase db) => {
                 : Results.NotFound();
 });
 
-app.MapPost("/assets/buildings/", async (building b, MoJo_API.DataBase db) => {//may contain uuid. If so do the same as Put
-    //generate UUid
-    //Garbage controll 
-    db.buildings.Add(b);
+app.MapPost("/assets/buildings/", async (building b, MoJo_API.DataBase db) => {
+
+    //building may contain a uuid. If so, we "put" it in our database
+    if(b.id == Guid.Empty)
+    {
+        b.id = Guid.NewGuid(); //generating id if there wasnt one
+        db.buildings.Add(b);
+        await db.SaveChangesAsync();
+        return Results.CreatedAtRoute();
+    }
+
+    Guid id = b.id;
+    var building = await db.buildings.FindAsync(id);
+
+    if (building is null) return Results.NotFound();
+
+
+    //found, so update with incoming building n.
+    building.address = b.address;
+    building.name = b.name;
     await db.SaveChangesAsync();
+    return Results.Ok(building);
 });
 
 app.MapPut("/assets/buildings/{id}/", async (Guid id, building n, MoJo_API.DataBase db) =>
@@ -74,9 +91,21 @@ app.MapPut("/assets/buildings/{id}/", async (Guid id, building n, MoJo_API.DataB
 });
 
 app.MapDelete("/assets/buildings/{id}/", async (Guid id, MoJo_API.DataBase db) => {
-    //check if storeys exists
-        //check if room exists
-    // Remove building
+
+    //removing every storey and room in that building
+    IEnumerable<storey> existingStoreysForThatBuilding = db.storeys.Where(storey => storey.building_id == id);
+    foreach(storey Storey in existingStoreysForThatBuilding)
+    {
+        Guid storeyId = Storey.id;
+        db.storeys.Remove(Storey);
+
+        IEnumerable<room> existingRoomsForThatStorey = db.rooms.Where(room => room.storey_id == storeyId);
+        foreach (room Room in existingRoomsForThatStorey)
+        {
+            db.rooms.Remove(Room);
+        }
+    }
+
     var building = await db.buildings.FindAsync(id);
     if (building is not null)
     {
@@ -133,6 +162,16 @@ app.MapDelete("/assets/rooms/{id}/", () => "not yet implemented");
 
 
 app.Run();
+
+
+
+/* #######################################
+ * ##          helper methods           ##
+ * #######################################
+ */
+
+
+
 
  // Guid equals uiid in c#
 public class building
