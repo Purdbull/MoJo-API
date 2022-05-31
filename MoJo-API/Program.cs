@@ -26,16 +26,18 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.MapGet("/", () => "Hello World!");
-
 /* ##########################################
  * ##          CRUD for buildings          ##
  * ##########################################
  */
 
-app.MapGet("/assets/buildings/", async (MoJo_API.DataBase db) => await db.buildings.ToListAsync());
+app.MapGet("/assets/buildings/", async (MoJo_API.DataBase db) => {
+    Console.WriteLine("GET Request on /assets/buildings/");
+    await db.buildings.ToListAsync();
+});
 
 app.MapGet("/assets/buildings/{id}/", async (Guid id,MoJo_API.DataBase db) => {
+    Console.WriteLine("GET Request on /assets/buildings/ with id:", id);
     // looking for the building with the requested id
     return await db.buildings.FindAsync(id)
             // checks weather the result of the operation before is a building or not 
@@ -44,12 +46,14 @@ app.MapGet("/assets/buildings/{id}/", async (Guid id,MoJo_API.DataBase db) => {
                 ? Results.Ok(n)
                 // Result wasnt a building object. building could not befound in the table. Return with Code:404
                 : Results.NotFound();
+    
 });
 
 app.MapPost("/assets/buildings/", async (building b, MoJo_API.DataBase db) => {
+    Console.WriteLine("POST Request on /assets/buildings/");
 
     //building may contain a uuid. If so, we "put" it in our database
-    if(b.id == Guid.Empty)
+    if (b.id == Guid.Empty)
     {
         b.id = Guid.NewGuid(); //generating id if there wasnt one
         db.buildings.Add(b);
@@ -72,6 +76,7 @@ app.MapPost("/assets/buildings/", async (building b, MoJo_API.DataBase db) => {
 
 app.MapPut("/assets/buildings/{id}/", async (Guid id, building n, MoJo_API.DataBase db) =>
 {
+    Console.WriteLine("PUT Request on /assets/buildings/ with id:", id);
     // check if id of the .json-object matches the requested id 
     if (n.id != id)
     {
@@ -91,6 +96,7 @@ app.MapPut("/assets/buildings/{id}/", async (Guid id, building n, MoJo_API.DataB
 });
 
 app.MapDelete("/assets/buildings/{id}/", async (Guid id, MoJo_API.DataBase db) => {
+    Console.WriteLine("DELETE Request on /assets/buildings/ with id:", id);
 
     //removing every storey and room in that building
     IEnumerable<storey> existingStoreysForThatBuilding = db.storeys.Where(storey => storey.building_id == id);
@@ -121,20 +127,84 @@ app.MapDelete("/assets/buildings/{id}/", async (Guid id, MoJo_API.DataBase db) =
  * ##########################################
  */
 
-app.MapGet("/assets/storeys/", async (MoJo_API.DataBase db) => await db.storeys.ToListAsync());
+app.MapGet("/assets/storeys/", async (MoJo_API.DataBase db) => {
+    Console.WriteLine("GET Request on /assets/storeys/");
+    await db.storeys.ToListAsync();
+});
 
 app.MapGet("/assets/storeys/{id}/" , async (Guid id, MoJo_API.DataBase db) => {
+    Console.WriteLine("GET Request on /assets/storeys/ with id:", id);
     return await db.storeys.FindAsync(id)
             is storey n
                 ? Results.Ok(n)
                 : Results.NotFound();
 });
 
-app.MapPost("/assets/storeys/", () => "not yet implemented");
+app.MapPost("/assets/storeys/", async (storey s, MoJo_API.DataBase db) => {
+    Console.WriteLine("POST Request on /assets/storeys/");
 
-app.MapPut("/assets/storeys/{id}/", () => "not yet implemented");
+    //storey may contain a uuid. If so, we "put" it in our database
+    if (s.id == Guid.Empty)
+    {
+        s.id = Guid.NewGuid(); //generating id if there wasnt one
+        db.storeys.Add(s);
+        await db.SaveChangesAsync();
+        return Results.CreatedAtRoute();
+    }
 
-app.MapDelete("/assets/storeys/{id}/", () => "not yet implemented");
+    Guid id = s.id;
+    var storey = await db.storeys.FindAsync(id);
+
+    if (storey is null) return Results.NotFound();
+
+
+    //found, so update with incoming storey s.
+    storey.name = s.name;
+    storey.building_id = s.building_id;
+    await db.SaveChangesAsync();
+    return Results.Ok(storey);
+});
+
+app.MapPut("/assets/storeys/{id}/", async (Guid id, storey s, MoJo_API.DataBase db) =>
+{
+    Console.WriteLine("PUT Request on /assets/storeys/ with id:", id);
+    // check if id of the .json-object matches the requested id 
+    if (s.id != id)
+    {
+        // id's do not match response with Code: 400 
+        return Results.BadRequest();
+    }
+
+    var storey = await db.storeys.FindAsync(id);
+
+    if (storey is null) return Results.NotFound();
+
+    //found, so update with incoming storey s.
+    storey.name = s.name;
+    storey.building_id = s.building_id;
+    await db.SaveChangesAsync();
+    return Results.Ok(storey);
+});
+
+app.MapDelete("/assets/storeys/{id}/", async (Guid id, MoJo_API.DataBase db) => {
+    Console.WriteLine("DELETE Request on /assets/storeys/ with id:", id);
+
+    //removing every room in that storey
+    IEnumerable<room> existingRoomsForThatStorey = db.rooms.Where(room => room.storey_id == id);
+    foreach (room Room in existingRoomsForThatStorey)
+    {
+        db.rooms.Remove(Room);
+    }
+    
+
+    var storey = await db.storeys.FindAsync(id);
+    if (storey is not null)
+    {
+        db.storeys.Remove(storey);
+        await db.SaveChangesAsync();
+    }
+    return Results.NoContent();
+});
 
 
 /* ##########################################
@@ -142,34 +212,83 @@ app.MapDelete("/assets/storeys/{id}/", () => "not yet implemented");
  * ##########################################
  */
 
-app.MapGet("/assets/rooms/", async (MoJo_API.DataBase db) => await db.rooms.ToListAsync());
+app.MapGet("/assets/rooms/", async (MoJo_API.DataBase db) =>
+{
+    Console.WriteLine("GET Request on /assets/rooms/");
+    await db.rooms.ToListAsync();
+});
 
 app.MapGet("/assets/rooms/{id}/" , async (Guid id, MoJo_API.DataBase db) => {
+    Console.WriteLine("GET Request on /assets/rooms/ with id:", id);
     return await db.rooms.FindAsync(id)
             is room n
                 ? Results.Ok(n)
                 : Results.NotFound();
 });
 
-app.MapPost("/assets/rooms/", () => "not yet implemented");
+app.MapPost("/assets/rooms/", async (room r, MoJo_API.DataBase db) => {
+    Console.WriteLine("POST Request on /assets/rooms/");
 
-app.MapPut("/assets/rooms/{id}/", () => "not yet implemented");
+    //storey may contain a uuid. If so, we "put" it in our database
+    if (r.id == Guid.Empty)
+    {
+        r.id = Guid.NewGuid(); //generating id if there wasnt one
+        db.rooms.Add(r);
+        await db.SaveChangesAsync();
+        return Results.CreatedAtRoute();
+    }
 
-app.MapDelete("/assets/rooms/{id}/", () => "not yet implemented");
+    Guid id = r.id;
+    var room = await db.rooms.FindAsync(id);
+
+    if (room is null) return Results.NotFound();
+
+
+    //found, so update with incoming room r.
+    room.name = r.name;
+    room.storey_id = r.storey_id;
+    await db.SaveChangesAsync();
+    return Results.Ok(room);
+});
+
+app.MapPut("/assets/rooms/{id}/", async (Guid id, room r, MoJo_API.DataBase db) =>
+{
+    Console.WriteLine("PUT Request on /assets/rooms/ with id:", id);
+    // check if id of the .json-object matches the requested id 
+    if (r.id != id)
+    {
+        // id's do not match response with Code: 400 
+        return Results.BadRequest();
+    }
+
+    var room = await db.rooms.FindAsync(id);
+
+    if (room is null) return Results.NotFound();
+
+    //found, so update with incoming room r.
+    room.name = r.name;
+    room.storey_id = r.storey_id;
+    await db.SaveChangesAsync();
+    return Results.Ok(room);
+});
+
+app.MapDelete("/assets/rooms/{id}/", async (Guid id, MoJo_API.DataBase db) => {
+    Console.WriteLine("DELETE Request on /assets/rooms/ with id:", id);
+
+    var room = await db.rooms.FindAsync(id);
+    if (room is not null)
+    {
+        db.rooms.Remove(room);
+        await db.SaveChangesAsync();
+    }
+    return Results.NoContent();
+});
 
 
 
 
 
 app.Run();
-
-
-
-/* #######################################
- * ##          helper methods           ##
- * #######################################
- */
-
 
 
 
